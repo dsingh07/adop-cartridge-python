@@ -4,8 +4,8 @@ def projectFolderName = "${PROJECT_NAME}"
 
 // Variables
 // **The git repo variables will be changed to the users' git repositories manually in the Jenkins jobs**
-def skeletonAppgitRepo = "adop-cartridge-python-reference"
-def skeletonAppGitUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + pythonAppgitRepo
+def pythonAppgitRepo = "adop-cartridge-python-reference"
+def pythonAppgitURL = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + pythonAppgitRepo
 
 // Jobs
 def buildAppJob = freeStyleJob(projectFolderName + "/Python_Build")
@@ -29,7 +29,7 @@ buildAppJob.with{
 	scm{
 		git{
 			remote{
-				url(skeletonAppGitUrl)
+				url(pythonAppgitURL)
 				credentials("adop-jenkins-master")
 			}
 			branch("*/master")
@@ -55,7 +55,7 @@ buildAppJob.with{
 			gerritxml / 'gerritProjects' {
 			  'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject' {
 				compareType("PLAIN")
-				pattern(projectFolderName + "/" + skeletonAppgitRepo)
+				pattern(projectFolderName + "/" + pythonAppgitRepo)
 				'branches' {
 				  'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch' {
 					compareType("PLAIN")
